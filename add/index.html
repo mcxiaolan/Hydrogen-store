@@ -34,7 +34,6 @@
                         <div class="ph-desc" id="prev-hero-desc">一句话简介...</div>
                     </div>
                 </div>
-
                 <div class="preview-header" style="margin-top:24px;">列表项效果 (List Item)</div>
                 <div class="pl-item">
                     <img id="prev-icon-img" class="pl-icon" src="" style="display:none;">
@@ -62,6 +61,40 @@
                 <div class="col form-group">
                     <label class="form-label">开发者</label>
                     <input type="text" id="inp-developer" class="form-input" placeholder="例如: Tencent">
+                </div>
+            </div>
+
+            <!-- 🌟 新增：包名和版本 -->
+            <div class="row">
+                <div class="col form-group">
+                    <label class="form-label">包名 (Package Name)</label>
+                    <input type="text" id="inp-pkg" class="form-input" placeholder="com.example.app">
+                </div>
+                <div class="col form-group">
+                    <label class="form-label">版本号 (Version)</label>
+                    <input type="text" id="inp-ver" class="form-input" placeholder="1.0.0">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-group">
+                    <label class="form-label">上传日期</label>
+                    <input type="date" id="inp-date" class="form-input">
+                </div>
+                <div class="col form-group">
+                    <label class="form-label">Android 版本</label>
+                    <input type="text" id="inp-version" class="form-input" placeholder="例如: 5.0+" value="5.0+">
+                </div>
+            </div>
+
+            <!-- 🌟 修改：架构多选 -->
+            <div class="form-group">
+                <label class="form-label">支持架构 (可多选)</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item"><input type="checkbox" name="arch" value="arm64-v8a" checked><span class="checkbox-label">arm64-v8a</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="arch" value="armeabi-v7a"><span class="checkbox-label">armeabi-v7a</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="arch" value="x86_64"><span class="checkbox-label">x86_64</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="arch" value="Universal"><span class="checkbox-label">Universal</span></label>
                 </div>
             </div>
 

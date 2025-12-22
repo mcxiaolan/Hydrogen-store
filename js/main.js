@@ -1,33 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elements
+    // ... (Variables setup unchanged)
     const appListContainer = document.getElementById('app-list');
     const heroContainer = document.getElementById('hero-container');
     const chipsContainer = document.getElementById('chips-container');
     const searchInput = document.getElementById('search-input');
-    
     const drawer = document.getElementById('drawer');
     const menuBtn = document.getElementById('menu-btn');
     const scrim = document.getElementById('scrim');
-    
     const prefBtn = document.getElementById('pref-btn');
     const prefOverlay = document.getElementById('pref-overlay');
     const closePrefBtn = document.getElementById('close-pref');
     const themeOptions = document.querySelectorAll('.theme-option');
-
     const detailModal = document.getElementById('detail-modal');
     const closeDetailBtn = document.getElementById('close-detail');
     const shareBtn = document.getElementById('share-btn');
     const toast = document.getElementById('toast');
-
     const desktopTabs = document.querySelectorAll('.dt-tab');
 
-    // State
     let allApps = [];
     let currentDetailApp = null; 
     let isDirectAccess = false;
     let currentScope = []; 
 
-    // Init
     updateThemeUI(); 
     fetchApps();
     setupEvents();
@@ -40,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 🌟 数组乱序算法 (Fisher-Yates Shuffle)
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -53,22 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const res = await fetch(`data/apps.json?t=${Date.now()}`);
             let data = await res.json();
-            
-            // 🌟 获取数据后立即打乱顺序，保证每次刷新列表都不同
             allApps = shuffleArray(data);
-            
             renderPage('home');
             handleDeepLinkOnInit(); 
-        } catch (e) {
-            console.error(e);
-        }
+        } catch (e) { console.error(e); }
     }
 
     function handleDeepLinkOnInit() {
         const urlParams = new URLSearchParams(window.location.search);
         const sharedId = urlParams.get('id');
         if (sharedId) {
-            // 注意：因为数组乱序了，但 find 是根据 id 找的，所以不影响功能
             const targetApp = allApps.find(app => app.id == sharedId);
             if (targetApp) {
                 isDirectAccess = true;
@@ -94,7 +81,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 heroContainer.style.display = 'none';
                 chipsContainer.style.display = 'none';
                 const results = allApps.filter(app => {
-                    const searchStr = (app.name + app.description + app.developer + (app.tags ? app.tags.join('') : '')).toLowerCase();
+                    // 🌟 增强搜索：包含包名和版本
+                    const searchStr = (
+                        app.name + 
+                        app.description + 
+                        app.developer + 
+                        (app.tags ? app.tags.join('') : '') +
+                        (app.package_name || '') +
+                        (app.version || '')
+                    ).toLowerCase();
                     return searchStr.includes(query);
                 });
                 renderList(results);
@@ -120,13 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.innerWidth >= 800 && detailModal.classList.contains('show')) closeDetailModal();
         });
 
-        if (prefBtn) {
-            prefBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if(window.innerWidth < 800) { drawer.classList.remove('open'); scrim.classList.remove('open'); }
-                setTimeout(() => prefOverlay.classList.add('show'), 100); 
-            });
-        }
+        if (prefBtn) prefBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(window.innerWidth < 800) { drawer.classList.remove('open'); scrim.classList.remove('open'); }
+            setTimeout(() => prefOverlay.classList.add('show'), 100); 
+        });
         if (closePrefBtn) closePrefBtn.addEventListener('click', () => prefOverlay.classList.remove('show'));
         
         themeOptions.forEach(opt => {
@@ -225,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const tagsText = app.tags ? app.tags.join(' · ') : '应用';
             const el = document.createElement('div');
             el.className = 'app-item';
-            // 🌟 核心修改：添加 loading="lazy"
             el.innerHTML = `
                 <img src="${app.icon}" class="app-icon" loading="lazy" onerror="this.src='https://placehold.co/100?text=App'">
                 <div class="app-info">
@@ -244,9 +236,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('d-icon').src = app.icon;
         document.getElementById('d-name').innerText = app.name;
         document.getElementById('d-developer').innerText = app.developer;
-        document.getElementById('d-type').innerText = app.type === 'game' ? '游戏' : '应用';
+        
+        // 🌟 填充新数据
         document.getElementById('d-desc').innerText = app.long_description || app.description;
         document.getElementById('d-download').href = app.download_url;
+        
+        document.getElementById('d-pkg').innerText = app.package_name || '-';
+        document.getElementById('d-ver').innerText = app.version || '-';
+        document.getElementById('d-date').innerText = app.upload_date || '-';
+        document.getElementById('d-min-os').innerText = app.android_version || '-';
+        // 架构是数组，展示为 A, B
+        document.getElementById('d-arch').innerText = Array.isArray(app.architecture) ? app.architecture.join(', ') : (app.architecture || '-');
         
         const tagsContainer = document.getElementById('d-tags');
         tagsContainer.innerHTML = '';
@@ -273,7 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
             app.screenshots.forEach(src => {
                 const img = document.createElement('img');
                 img.src = src;
-                // 🌟 详情页截图也加上 lazy load，防止图片太多加载慢
                 img.loading = "lazy"; 
                 shotContainer.appendChild(img);
             });
@@ -357,9 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const img = document.createElement('img');
                 img.className = 'hero-bg-img';
                 img.src = app.cover_image;
-                // Hero 图片通常位于首屏，第一张建议 eager，后面可以 lazy，
-                // 但为了轮播流畅，统一不做 lazy 或仅对后面的 lazy。
-                // 这里暂不加 lazy，保证首屏视觉体验。
                 img.onload = () => img.classList.add('loaded');
                 img.onerror = () => img.remove();
                 card.appendChild(img);

@@ -1,5 +1,5 @@
 :root {
-    /* Base Variables */
+    /* 基础变量 */
     --md-sys-color-primary: #6750A4;
     --md-sys-color-on-primary: #FFFFFF;
     --md-sys-color-primary-container: #EADDFF;
@@ -243,10 +243,18 @@ h1 {
 .screenshot-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 16px; margin-bottom: 24px; scrollbar-width: none; }
 .screenshot-row img { height: 200px; border-radius: 12px; object-fit: cover; }
 .d-section h3 { font-family: var(--font-brand); font-size: 18px; margin-bottom: 12px; color: var(--md-sys-color-on-surface); }
-.d-section p { line-height: 1.6; color: var(--md-sys-color-on-surface-variant); font-size: 15px; }
+.d-section p { line-height: 1.6; color: var(--md-sys-color-on-surface-variant); font-size: 15px; white-space: pre-line; }
 .full-width-btn { display: flex; width: 100%; height: 48px; background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border-radius: 24px; align-items: center; justify-content: center; text-decoration: none; font-weight: 500; font-size: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
-/* Admin & Preview */
+/* --- New: Detail Tech Info --- */
+.d-tech-info { margin-top: 24px; background-color: var(--md-sys-color-surface-container); border-radius: 16px; padding: 16px; }
+.d-tech-title { font-size: 14px; font-weight: bold; color: var(--md-sys-color-on-surface); margin-bottom: 12px; font-family: var(--font-brand); }
+.d-tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.d-tech-item { display: flex; flex-direction: column; gap: 4px; }
+.d-tech-label { font-size: 12px; color: var(--md-sys-color-on-surface-variant); }
+.d-tech-val { font-size: 13px; font-weight: 500; color: var(--md-sys-color-on-surface); word-break: break-all; }
+
+/* --- Admin / Preview Styles --- */
 .form-container { max-width: 700px; margin: 20px auto; padding: 24px; background: var(--md-sys-color-surface-container); border-radius: 28px; }
 .form-group { margin-bottom: 20px; }
 .form-label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--md-sys-color-primary); font-size: 14px; }
@@ -299,24 +307,108 @@ input:checked + .slider:before { transform: translateX(20px); background-color: 
 .color-picker { width: 50px; height: 32px; border: none; padding: 0; background: none; cursor: pointer; }
 .range-slider { width: 100%; accent-color: var(--md-sys-color-primary); }
 
-/* Desktop Adaptation */
+/* --- 🌟 New Checkbox Style (MD3 Chips) --- */
+.checkbox-group { display: flex; flex-wrap: wrap; gap: 12px; padding: 8px 0; }
+/* 隐藏原生 input */
+.checkbox-item input { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
+/* Chip 容器 */
+.checkbox-item { 
+    display: inline-flex; align-items: center; gap: 8px; 
+    padding: 8px 16px; border-radius: 8px; 
+    border: 1px solid var(--md-sys-color-outline-variant); 
+    background-color: var(--md-sys-color-surface); 
+    color: var(--md-sys-color-on-surface-variant); 
+    font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; user-select: none;
+}
+/* Hover 效果 */
+.checkbox-item:hover { background-color: var(--md-sys-color-surface-container-high); }
+/* 选中状态 (:has 选择器) */
+.checkbox-item:has(input:checked) {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    border-color: transparent;
+}
+/* 选中时的对勾图标 (伪元素) */
+.checkbox-item:has(input:checked)::before {
+    content: '';
+    display: block; width: 18px; height: 18px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2321005D'%3e%3cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3e%3c/svg%3e");
+    background-size: cover;
+}
+/* 深色模式下的对勾颜色适配 (变为浅色) */
+[data-theme="dark"] .checkbox-item:has(input:checked)::before {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23EADDFF'%3e%3cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3e%3c/svg%3e");
+}
+
+/* =========================================
+   🖥️ Desktop Adaptation (Last Override)
+   ========================================= */
 @media (min-width: 800px) {
+    /* 1. Header & Tabs */
     .top-bar { padding: 0 32px; border-bottom: 1px solid var(--md-sys-color-outline-variant); z-index: 1300; }
     .desktop-tabs { display: flex; }
     .search-bar { max-width: 400px; }
+
+    /* 2. Hide Mobile Elements */
     .bottom-nav, .drawer-title-mobile, .scrim { display: none !important; }
-    .drawer { transform: translateX(0); top: var(--header-height); height: calc(100vh - var(--header-height)); width: var(--drawer-width); border-right: 1px solid var(--md-sys-color-outline-variant); border-radius: 0; box-shadow: none; padding-top: 20px; z-index: 900; background-color: var(--md-sys-color-surface); }
+
+    /* 3. Persistent Sidebar */
+    .drawer {
+        transform: translateX(0);
+        top: var(--header-height);
+        height: calc(100vh - var(--header-height));
+        width: var(--drawer-width);
+        border-right: 1px solid var(--md-sys-color-outline-variant);
+        border-radius: 0;
+        box-shadow: none;
+        padding-top: 20px;
+        z-index: 900;
+        background-color: var(--md-sys-color-surface); /* 侧边栏颜色修复 */
+    }
+    
     body.sidebar-collapsed .drawer { width: var(--drawer-width-collapsed); }
     body.sidebar-collapsed .drawer-text { display: none; }
     body.sidebar-collapsed .drawer-item { justify-content: center; padding: 12px 0; }
+    
+    /* 4. Main Content Shift */
     #main-content { margin-left: var(--drawer-width); padding: 24px 40px; }
     body.sidebar-collapsed #main-content { margin-left: var(--drawer-width-collapsed); }
+
+    /* 5. Grid */
     .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
     .hero-carousel { padding: 0; }
     .hero-card { width: 100%; max-width: 450px; height: 280px; }
-    .detail-modal { width: 600px; height: auto; max-height: 85vh; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) scale(0.95); border-radius: 28px; overflow: hidden; opacity: 0; pointer-events: none; box-shadow: 0 20px 50px rgba(0,0,0,0.4); right: auto; bottom: auto; }
-    .detail-modal.show { transform: translate(-50%, -50%) scale(1) !important; opacity: 1; pointer-events: auto; }
-    .detail-bottom-bar { position: relative; bottom: auto; left: auto; border-radius: 0; padding-bottom: 16px; }
-    .detail-content { padding-bottom: 20px; }
+
+    /* 6. Detail Dialog (修复居中 & 滚动 & 圆角裁剪) */
+    .detail-modal {
+        width: 600px; height: auto; max-height: 85vh;
+        /* 绝对居中 */
+        top: 50% !important; left: 50% !important;
+        transform: translate(-50%, -50%) scale(0.95);
+        
+        border-radius: 28px;
+        /* 关键修复：确保圆角内滚动条不溢出 */
+        overflow: hidden; 
+        
+        opacity: 0; pointer-events: none;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4); 
+        right: auto; bottom: auto;
+    }
+    /* 覆盖 show 状态的 transform */
+    .detail-modal.show { 
+        transform: translate(-50%, -50%) scale(1) !important; 
+        opacity: 1; pointer-events: auto; 
+    }
+    /* 恢复正常文档流，避免遮挡内容 */
+    .detail-bottom-bar { 
+        position: relative; 
+        bottom: auto; left: auto;
+        border-radius: 0; 
+        padding-bottom: 16px; 
+    }
+    .detail-content {
+        padding-bottom: 20px; 
+    }
+    
     .generator-modal { max-width: 400px; }
 }

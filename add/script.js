@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const tagsInput = getEl('inp-tags');
     const coverInput = getEl('inp-cover');
     const coverImgInput = getEl('inp-cover-img');
+    const dateInput = getEl('inp-date'); 
+    const versionInput = getEl('inp-version'); 
+    // 🌟 新增字段
+    const pkgInput = getEl('inp-pkg');
+    const verInput = getEl('inp-ver');
     
     const btnRandom = getEl('btn-random-color');
     const btnOpenGen = getEl('btn-open-gen');
@@ -34,6 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const codeResult = getEl('code-result');
     const copyBtn = getEl('btn-copy');
     const toast = getEl('toast');
+
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
+    }
 
     fetch('../data/apps.json?t=' + Date.now())
         .then(res => res.json())
@@ -139,6 +149,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const longDescription = getEl('inp-long-desc').value.trim();
             const screenshotsStr = getEl('inp-screenshots').value;
             const featured = getEl('inp-featured').checked;
+            
+            const uploadDate = dateInput.value;
+            const androidVer = versionInput.value.trim();
+            const pkgName = pkgInput.value.trim();
+            const appVer = verInput.value.trim();
+            
+            // 🌟 收集选中的架构
+            const selectedArchs = Array.from(document.querySelectorAll('input[name="arch"]:checked')).map(cb => cb.value);
 
             if (!nameInput.value.trim()) { alert('请输入应用名称'); return; }
 
@@ -148,6 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const newApp = {
                 id: parseInt(idInput.value),
                 name: nameInput.value.trim(),
+                package_name: pkgName,
+                version: appVer,
                 developer: developer,
                 icon: iconInput.value.trim(),
                 cover: coverInput.value.trim(),
@@ -157,6 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 description: descInput.value.trim(),
                 long_description: longDescription,
                 screenshots: screenshots,
+                upload_date: uploadDate,
+                android_version: androidVer,
+                architecture: selectedArchs, // 数组
+                
                 featured: featured,
                 download_url: downloadUrl
             };

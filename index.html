@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>氢商店</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <script src="js/theme.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -14,23 +14,11 @@
     <div class="scrim" id="scrim"></div>
     <aside class="drawer" id="drawer">
         <h2 class="drawer-title-mobile">氢商店</h2>
-        <a href="/" class="drawer-item active" id="drawer-home">
-            <span class="material-symbols-rounded">home</span>
-            <span class="drawer-text">首页</span>
-        </a>
-        <a href="#" class="drawer-item" id="pref-btn">
-            <span class="material-symbols-rounded">palette</span>
-            <span class="drawer-text">偏好</span>
-        </a>
+        <a href="#" class="drawer-item active" id="drawer-home"><span class="material-symbols-rounded">home</span><span class="drawer-text">首页</span></a>
+        <a href="#" class="drawer-item" id="pref-btn"><span class="material-symbols-rounded">palette</span><span class="drawer-text">偏好</span></a>
         <div class="drawer-divider"></div>
-        <a href="add/" class="drawer-item" style="color:var(--md-sys-color-primary);">
-            <span class="material-symbols-rounded">add_circle</span>
-            <span class="drawer-text">添加</span>
-        </a>
-        <a href="about/" class="drawer-item">
-            <span class="material-symbols-rounded">info</span>
-            <span class="drawer-text">关于</span>
-        </a>
+        <a href="add/" class="drawer-item" style="color:var(--md-sys-color-primary);"><span class="material-symbols-rounded">add_circle</span><span class="drawer-text">添加</span></a>
+        <a href="about/" class="drawer-item"><span class="material-symbols-rounded">info</span><span class="drawer-text">关于</span></a>
     </aside>
 
     <div class="modal-overlay" id="pref-overlay">
@@ -60,14 +48,42 @@
                 </div>
             </div>
             <div class="d-tags-row" id="d-tags"></div>
-            <div class="d-stats-row">
-                <div class="d-stat"><span class="material-symbols-rounded" style="font-size:16px;">category</span><span id="d-type">应用</span></div>
-            </div>
+            
             <div class="screenshot-row" id="d-screenshots"></div>
+
             <div class="d-section">
                 <h3>应用介绍</h3>
                 <p id="d-desc">Description text...</p>
             </div>
+
+            <!-- 🌟 信息表格 (2列布局) -->
+            <div class="d-tech-info">
+                <div class="d-tech-title">版本信息</div>
+                <div class="d-tech-grid">
+                    <div class="d-tech-item">
+                        <span class="d-tech-label">包名</span>
+                        <span class="d-tech-val" id="d-pkg">-</span>
+                    </div>
+                    <div class="d-tech-item">
+                        <span class="d-tech-label">版本</span>
+                        <span class="d-tech-val" id="d-ver">-</span>
+                    </div>
+                    <div class="d-tech-item">
+                        <span class="d-tech-label">更新日期</span>
+                        <span class="d-tech-val" id="d-date">-</span>
+                    </div>
+                    <div class="d-tech-item">
+                        <span class="d-tech-label">系统要求</span>
+                        <span class="d-tech-val" id="d-min-os">-</span>
+                    </div>
+                    <div class="d-tech-item" style="grid-column: span 2;">
+                        <span class="d-tech-label">架构</span>
+                        <span class="d-tech-val" id="d-arch">-</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="height: 100px;"></div>
         </div>
         <div class="detail-bottom-bar">
             <a href="#" id="d-download" class="full-width-btn" target="_blank">立即下载</a>
