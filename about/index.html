@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们 - 氢商店</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script src="/js/theme.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        .about-container { max-width: 600px; margin: 40px auto; padding: 24px; text-align: center; }
+        .logo-placeholder { width: 144px; height: 144px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--md-sys-color-on-primary-container); }
+        .about-title { font-family: 'Google Sans'; font-size: 24px; margin-bottom: 8px; color: var(--md-sys-color-on-surface); }
+        .about-ver { color: var(--md-sys-color-on-surface-variant); font-size: 14px; margin-bottom: 32px; }
+        .about-content { text-align: left; line-height: 1.6; color: var(--md-sys-color-on-surface-variant); background: var(--md-sys-color-surface-container); padding: 24px; border-radius: 24px; }
+        .about-footer { margin-top: 40px; color: var(--md-sys-color-outline-variant); font-size: 12px; }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <div class="top-bar-content">
+            <a href="/index.html" style="text-decoration:none; display:flex; align-items:center; color:inherit;">
+                <span class="material-symbols-rounded">arrow_back</span>
+                <h1>返回商店</h1>
+            </a>
+        </div>
+    </header>
+
+    <main class="about-container">
+        <div class="logo-placeholder">
+            <img class="logo-placeholder" src="/favicon.svg" alt="Hydrogen Store Logo">
+            <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg"> -->
+            <!-- <span class="material-symbols-rounded" style="font-size: 40px;">shopping_bag</span> -->
+        </div>
+        <h2 class="about-title">氢商店</h2>
+        <p class="about-ver">Version 1.0.0 (Hydrogen)</p>
+
+        <div class="about-content">
+            <p><strong>氢商店 (Hydrogen Store)</strong> 是一个开源、轻量级的静态应用分发平台。</p>
+            <br>
+            <p>它基于 <strong>Material 3</strong> 设计语言构建，旨在提供、流畅且现代化的用户体验。本项目无需后端服务器，所有数据均通过 JSON 文件驱动。</p>
+            <br>
+            <p>主要特性：</p>
+            <ul style="padding-left: 20px; margin-top: 8px;">
+                <li>纯静态部署</li>
+                <li>深色模式自动适配 & 自定义</li>
+                <li>PWA 级单页应用体验</li>
+                <li>新增应用 JSON 生成器</li>
+                <li>3A 网页：AI, Android, Amazing(</li>
+            </ul>
+        </div>
+
+        <div class="about-footer">
+            &copy; 2025 Hydrogen Store Project. All rights reserved.
+        </div>
+    </main>
+</body>
+</html>

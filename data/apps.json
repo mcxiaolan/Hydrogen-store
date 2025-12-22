@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "name": "PhotoMix",
+    "developer": "Creative Labs",
+    "icon": "https://cdn-icons-png.flaticon.com/512/2983/2983067.png",
+    "cover": "linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%)",
+    "cover_image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop",
+    "type": "app",
+    "tags": ["摄影", "修图", "滤镜", "工具"],
+    "description": "专业的照片编辑与滤镜工具。",
+    "long_description": "PhotoMix 是一款功能强大的移动端修图工具，提供超过 200 种专业级滤镜。支持 RAW 格式编辑、AI 智能抠图以及多图层混合模式。无论你是摄影新手还是专业人士，都能在这里找到无限创意。",
+    "screenshots": [
+        "https://placehold.co/300x500/FF9A9E/FFF?text=Edit",
+        "https://placehold.co/300x500/FECFEF/333?text=Filter",
+        "https://placehold.co/300x500/e0c3fc/333?text=Share"
+    ],
+    "featured": true,
+    "download_url": "https://example.com/photomix.apk"
+  }
+]
