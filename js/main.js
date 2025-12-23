@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const desktopTabs = document.querySelectorAll('.dt-tab');
 
     let allApps = [];
-    let currentDetailApp = null; 
+    let currentDetailApp = null;
     let isDirectAccess = false;
-    let currentScope = []; 
+    let currentScope = [];
 
-    updateThemeUI(); 
+    updateThemeUI();
     fetchApps();
     setupEvents();
 
@@ -48,8 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let data = await res.json();
             allApps = shuffleArray(data);
             renderPage('home');
-            handleDeepLinkOnInit(); 
-        } catch (e) { console.error(e); }
+            handleDeepLinkOnInit();
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     function handleDeepLinkOnInit() {
@@ -71,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             else {
                 const id = urlParams.get('id');
                 const app = allApps.find(a => a.id == id);
-                if(app) openDetail(app, false);
+                if (app) openDetail(app, false);
             }
         });
 
@@ -83,9 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const results = allApps.filter(app => {
                     // 🌟 增强搜索：包含包名和版本
                     const searchStr = (
-                        app.name + 
-                        app.description + 
-                        app.developer + 
+                        app.name +
+                        app.description +
+                        app.developer +
                         (app.tags ? app.tags.join('') : '') +
                         (app.package_name || '') +
                         (app.version || '')
@@ -95,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderList(results);
             } else {
                 const activeTab = document.querySelector('.dt-tab.active') || document.querySelector('.nav-item.active');
-                if(activeTab) renderPage(activeTab.dataset.tab);
+                if (activeTab) renderPage(activeTab.dataset.tab);
             }
         });
 
@@ -104,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             else {
                 drawer.classList.add('open');
                 scrim.classList.add('open');
-                scrim.style.display = 'block'; 
+                scrim.style.display = 'block';
             }
         });
 
@@ -117,11 +119,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (prefBtn) prefBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if(window.innerWidth < 800) { drawer.classList.remove('open'); scrim.classList.remove('open'); }
-            setTimeout(() => prefOverlay.classList.add('show'), 100); 
+            if (window.innerWidth < 800) {
+                drawer.classList.remove('open');
+                scrim.classList.remove('open');
+            }
+            setTimeout(() => prefOverlay.classList.add('show'), 100);
         });
         if (closePrefBtn) closePrefBtn.addEventListener('click', () => prefOverlay.classList.remove('show'));
-        
+
         themeOptions.forEach(opt => {
             opt.addEventListener('click', () => {
                 const val = opt.dataset.val;
@@ -150,17 +155,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const switchTab = (tabName) => {
             searchInput.value = '';
             document.querySelectorAll('.nav-item').forEach(n => {
-                if(n.dataset.tab === tabName) n.classList.add('active'); else n.classList.remove('active');
+                if (n.dataset.tab === tabName) n.classList.add('active');
+                else n.classList.remove('active');
             });
             document.querySelectorAll('.dt-tab').forEach(n => {
-                if(n.dataset.tab === tabName) n.classList.add('active'); else n.classList.remove('active');
+                if (n.dataset.tab === tabName) n.classList.add('active');
+                else n.classList.remove('active');
             });
             renderPage(tabName);
             window.scrollTo(0, 0);
         };
 
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', (e) => { e.preventDefault(); switchTab(item.dataset.tab); });
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchTab(item.dataset.tab);
+            });
         });
 
         desktopTabs.forEach(btn => {
@@ -170,14 +180,22 @@ document.addEventListener('DOMContentLoaded', () => {
         shareBtn.addEventListener('click', async () => {
             if (!currentDetailApp) return;
             const shareUrl = window.location.href;
-            const shareData = { title: currentDetailApp.name, text: `我在氢商店发现了：${currentDetailApp.name}`, url: shareUrl };
+            const shareData = {
+                title: currentDetailApp.name,
+                text: `我在氢商店发现了：${currentDetailApp.name}`,
+                url: shareUrl
+            };
             if (navigator.share) {
-                try { await navigator.share(shareData); } catch (err) {}
+                try {
+                    await navigator.share(shareData);
+                } catch (err) {}
             } else {
                 try {
                     await navigator.clipboard.writeText(`${shareData.text} \n链接: ${shareData.url}`);
                     showToast('已复制当前页链接');
-                } catch (err) { showToast('复制失败'); }
+                } catch (err) {
+                    showToast('复制失败');
+                }
             }
         });
     }
@@ -235,19 +253,21 @@ document.addEventListener('DOMContentLoaded', () => {
         currentDetailApp = app;
         document.getElementById('d-icon').src = app.icon;
         document.getElementById('d-name').innerText = app.name;
-        document.getElementById('d-developer').innerText = app.developer;
-        
-        // 🌟 填充新数据
+        const devEl = document.getElementById('d-developer');
+        devEl.innerText = app.developer;
+        devEl.href = app.website || '#';
+        devEl.style.cursor = app.website ? 'pointer' : 'default';
+        devEl.style.opacity = app.website ? '1' : '0.7';
+        document.getElementById('d-uploader').innerText = app.uploader || '匿名';
         document.getElementById('d-desc').innerText = app.long_description || app.description;
         document.getElementById('d-download').href = app.download_url;
-        
         document.getElementById('d-pkg').innerText = app.package_name || '-';
         document.getElementById('d-ver').innerText = app.version || '-';
         document.getElementById('d-date').innerText = app.upload_date || '-';
         document.getElementById('d-min-os').innerText = app.android_version || '-';
         // 架构是数组，展示为 A, B
         document.getElementById('d-arch').innerText = Array.isArray(app.architecture) ? app.architecture.join(', ') : (app.architecture || '-');
-        
+
         const tagsContainer = document.getElementById('d-tags');
         tagsContainer.innerHTML = '';
         if (app.tags && app.tags.length > 0) {
@@ -273,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
             app.screenshots.forEach(src => {
                 const img = document.createElement('img');
                 img.src = src;
-                img.loading = "lazy"; 
+                img.loading = "lazy";
                 shotContainer.appendChild(img);
             });
             shotContainer.style.display = 'flex';
@@ -283,11 +303,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (pushHistory) {
             const newUrl = `${window.location.pathname}?id=${app.id}`;
-            history.pushState({ id: app.id }, '', newUrl);
+            history.pushState({
+                id: app.id
+            }, '', newUrl);
         }
 
         if (window.innerWidth >= 800) {
-            scrim.style.display = 'block'; 
+            scrim.style.display = 'block';
             setTimeout(() => scrim.classList.add('open'), 10);
         }
 
@@ -304,7 +326,10 @@ document.addEventListener('DOMContentLoaded', () => {
         buttons.forEach(btn => {
             if (btn.innerText === tagName) {
                 btn.click();
-                btn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+                btn.scrollIntoView({
+                    behavior: 'smooth',
+                    inline: 'center'
+                });
                 found = true;
             }
         });
@@ -318,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
         detailModal.classList.remove('show');
         if (window.innerWidth >= 800) {
             scrim.classList.remove('open');
-            setTimeout(() => scrim.style.display = '', 300); 
+            setTimeout(() => scrim.style.display = '', 300);
         }
         currentDetailApp = null;
     }
@@ -351,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
         apps.forEach(app => {
             const card = document.createElement('div');
             card.className = `hero-card ${apps.length > 1 ? 'multiple' : ''}`;
-            card.style.background = app.cover; 
+            card.style.background = app.cover;
             if (app.cover_image) {
                 const img = document.createElement('img');
                 img.className = 'hero-bg-img';

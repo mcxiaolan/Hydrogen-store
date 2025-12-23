@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -10,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
+
 <body>
     <div class="scrim" id="scrim"></div>
     <aside class="drawer" id="drawer">
@@ -44,11 +46,11 @@
                 <img src="" id="d-icon" class="d-icon">
                 <div class="d-info">
                     <h2 id="d-name">App Name</h2>
-                    <p id="d-developer" style="color:var(--md-sys-color-primary);">Developer</p>
+                    <a id="d-developer" href="#" target="_blank" style="color:var(--md-sys-color-primary); text-decoration:none; font-weight:500;">Developer</a>
                 </div>
             </div>
             <div class="d-tags-row" id="d-tags"></div>
-            
+
             <div class="screenshot-row" id="d-screenshots"></div>
 
             <div class="d-section">
@@ -80,9 +82,13 @@
                         <span class="d-tech-label">架构</span>
                         <span class="d-tech-val" id="d-arch">-</span>
                     </div>
+                    <div class="d-tech-item">
+                        <span class="d-tech-label">上传者</span>
+                        <span class="d-tech-val" id="d-uploader">-</span>
+                    </div>
                 </div>
             </div>
-            
+
             <div style="height: 100px;"></div>
         </div>
         <div class="detail-bottom-bar">
@@ -112,7 +118,9 @@
         <section class="hero-section" id="hero-container"></section>
         <section class="chips-row" id="chips-container"></section>
         <section class="app-grid-section">
-            <div class="section-header"><h2>热门应用</h2></div>
+            <div class="section-header">
+                <h2>热门应用</h2>
+            </div>
             <div class="app-grid" id="app-list">
                 <div style="text-align:center; padding:20px; color:#888;">正在加载...</div>
             </div>
@@ -128,4 +136,5 @@
     <div id="toast" class="toast">消息提示</div>
     <script src="js/main.js"></script>
 </body>
+
 </html>

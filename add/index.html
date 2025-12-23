@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
+
 <body>
     <header class="top-bar">
         <div class="top-bar-content">
@@ -23,7 +25,25 @@
     <main style="padding-bottom: 40px;">
         <div class="form-container">
             <h2 style="margin-bottom: 24px; font-family: 'Google Sans';">录入新应用</h2>
-            
+            <div>
+                <p>欢迎添加新的应用！在添加之前，请阅读以下注意事项：</p>
+                <ul style="padding-left: 20px; margin-top: 8px;">
+                    <li>认真核对所有信息，确保准确无误</li>
+                    <li>请将 所有文件 压缩 后上传到下方</li>
+                    <li>如果软件官方没有提供下载直链，可以填入能下载的地方 (如Github releases) 或者在下方上传安装包</li>
+                    <li>如果软件官方没有提供图标、官方截图等媒体文件，可在下方上传</li>
+                    <li>如果你在下方上传安装包及媒体文件，请在相关文本框输入"#"，规范文件名称，如: 软件图标为 icon.png; 软件截图为 screenshot1.jpg</li>
+                    <li>生成 JSON 代码后，请创建 apps.json 文件并 原封不动 地粘贴到里面</li>
+                    <li>如果你想添加说明，请创建 README.md 文件</li>
+                </ul>
+                <div style="margin-top:24px;">
+                    <a href="https://ltyaa-my.sharepoint.com/:f:/g/personal/oss_ltyaa_onmicrosoft_com/IgBSMOivQIfyQpTebRxm4H4aAeDZt4TCtv5lLwebUb46LVM" target="_blank">
+                        <button class="btn-primary">上传文件
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <br>
             <div class="preview-section">
                 <div class="preview-header">推荐卡片效果 (Hero)</div>
                 <div class="ph-card" id="prev-hero-card">
@@ -42,7 +62,7 @@
                     </div>
                     <div class="pl-info">
                         <div class="pl-name" id="prev-list-name">应用名称</div>
-                        <div class="pl-meta" id="prev-list-meta">标签1 · 标签2</div>
+                        <div class="pl-meta" id="prev-list-meta">手表 · 娱乐</div>
                     </div>
                     <div class="pl-btn">获取</div>
                 </div>
@@ -63,7 +83,16 @@
                     <input type="text" id="inp-developer" class="form-input" placeholder="例如: Tencent">
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col form-group">
+                    <label class="form-label">软件官网 (Website URL)</label>
+                    <input type="text" id="inp-website" class="form-input" placeholder="https://...">
+                </div>
+                <div class="col form-group">
+                    <label class="form-label">上传者 (Uploader)</label>
+                    <input type="text" id="inp-uploader" class="form-input" placeholder="例如: Admin">
+                </div>
+            </div>
             <!-- 🌟 新增：包名和版本 -->
             <div class="row">
                 <div class="col form-group">
@@ -168,8 +197,8 @@
             </div>
 
             <div id="output-area" style="display:none; margin-top:24px;">
-                <h3 style="font-size:16px; margin-bottom:12px;">🎉 生成成功！请复制以下代码：</h3>
-                <p style="font-size:12px; color:#B3261E; margin-bottom:8px;">注意：请复制并粘贴到 apps.json 文件的末尾（在最后一个 ] 之前）。</p>
+                <h3 style="font-size:16px; margin-bottom:12px;">🎉 生成成功！</h3>
+                <p style="font-size:12px; color:#B3261E; margin-bottom:8px;">注意：请返回页面上方上传文件<!--请复制并粘贴到 apps.json 文件的末尾（在最后一个 ] 之前）。--></p>
                 <pre class="code-preview" id="code-result"></pre>
                 <button class="btn-secondary" id="btn-copy" style="width:100%; margin-top:12px;">复制到剪贴板</button>
             </div>
@@ -192,4 +221,5 @@
     <div id="toast" class="toast"></div>
     <script src="script.js"></script>
 </body>
+
 </html>

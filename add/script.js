@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const getEl = (id) => document.getElementById(id);
-
     const idInput = getEl('inp-id');
     const nameInput = getEl('inp-name');
     const descInput = getEl('inp-desc');
@@ -8,12 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const tagsInput = getEl('inp-tags');
     const coverInput = getEl('inp-cover');
     const coverImgInput = getEl('inp-cover-img');
-    const dateInput = getEl('inp-date'); 
-    const versionInput = getEl('inp-version'); 
-    // 🌟 新增字段
+    const dateInput = getEl('inp-date');
+    const versionInput = getEl('inp-version');
     const pkgInput = getEl('inp-pkg');
     const verInput = getEl('inp-ver');
-    
+    const websiteInput = getEl('inp-website');
+    const uploaderInput = getEl('inp-uploader');
     const btnRandom = getEl('btn-random-color');
     const btnOpenGen = getEl('btn-open-gen');
     const genModal = getEl('gen-modal');
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const genAngle = getEl('gen-angle');
     const genAngleVal = getEl('gen-angle-val');
     const btnApplyGen = getEl('btn-apply-gen');
-
     const prevHeroCard = getEl('prev-hero-card');
     const prevHeroImg = getEl('prev-hero-img');
     const prevHeroTitle = getEl('prev-hero-title');
@@ -33,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevIconPlaceholder = getEl('prev-icon-placeholder');
     const prevListName = getEl('prev-list-name');
     const prevListMeta = getEl('prev-list-meta');
-
     const generateBtn = getEl('btn-generate');
     const outputArea = getEl('output-area');
     const codeResult = getEl('code-result');
@@ -49,24 +46,29 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
             const maxId = data.length > 0 ? Math.max(...data.map(app => app.id)) : 0;
-            if(idInput) idInput.value = maxId + 1;
+            if (idInput) idInput.value = maxId + 1;
         })
-        .catch(() => { if(idInput) idInput.value = 1; });
+        .catch(() => {
+            if (idInput) idInput.value = 1;
+        });
 
-    const getRandomColor = () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+    const getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
     const setRandomGradient = () => {
         const c1 = getRandomColor();
         const c2 = getRandomColor();
         const angle = Math.floor(Math.random() * 360);
         const gradient = `linear-gradient(${angle}deg, ${c1} 0%, ${c2} 100%)`;
-        if(coverInput) {
+        if (coverInput) {
             coverInput.value = gradient;
             coverInput.dispatchEvent(new Event('input'));
         }
     };
     setRandomGradient();
 
-    if (btnRandom) btnRandom.addEventListener('click', (e) => { e.preventDefault(); setRandomGradient(); });
+    if (btnRandom) btnRandom.addEventListener('click', (e) => {
+        e.preventDefault();
+        setRandomGradient();
+    });
 
     const updateGenPreview = () => {
         const c1 = genColor1.value;
@@ -85,9 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    [genColor1, genColor2, genAngle].forEach(el => { if(el) el.addEventListener('input', updateGenPreview); });
+    [genColor1, genColor2, genAngle].forEach(el => {
+        if (el) el.addEventListener('input', updateGenPreview);
+    });
 
-    if (genOverlay) genOverlay.addEventListener('click', () => { genModal.classList.remove('show'); genOverlay.classList.remove('show'); });
+    if (genOverlay) genOverlay.addEventListener('click', () => {
+        genModal.classList.remove('show');
+        genOverlay.classList.remove('show');
+    });
 
     if (btnApplyGen) {
         btnApplyGen.addEventListener('click', (e) => {
@@ -132,8 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const url = coverImgInput.value.trim();
             if (url) {
                 prevHeroImg.src = url;
-                prevHeroImg.onload = () => { prevHeroImg.style.opacity = 1; };
-                prevHeroImg.onerror = () => { prevHeroImg.style.opacity = 0; };
+                prevHeroImg.onload = () => {
+                    prevHeroImg.style.opacity = 1;
+                };
+                prevHeroImg.onerror = () => {
+                    prevHeroImg.style.opacity = 0;
+                };
             } else {
                 prevHeroImg.style.opacity = 0;
             }
@@ -149,16 +160,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const longDescription = getEl('inp-long-desc').value.trim();
             const screenshotsStr = getEl('inp-screenshots').value;
             const featured = getEl('inp-featured').checked;
-            
             const uploadDate = dateInput.value;
             const androidVer = versionInput.value.trim();
             const pkgName = pkgInput.value.trim();
             const appVer = verInput.value.trim();
-            
+            const website = websiteInput.value.trim();
+            const uploader = uploaderInput.value.trim();
             // 🌟 收集选中的架构
             const selectedArchs = Array.from(document.querySelectorAll('input[name="arch"]:checked')).map(cb => cb.value);
 
-            if (!nameInput.value.trim()) { alert('请输入应用名称'); return; }
+            if (!nameInput.value.trim()) {
+                alert('请输入应用名称');
+                return;
+            }
 
             const tags = tagsStr.split(/[,，]/).map(t => t.trim()).filter(t => t);
             const screenshots = screenshotsStr.split('\n').map(s => s.trim()).filter(s => s);
@@ -169,6 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 package_name: pkgName,
                 version: appVer,
                 developer: developer,
+                website: website,
+                uploader: uploader,
                 icon: iconInput.value.trim(),
                 cover: coverInput.value.trim(),
                 cover_image: coverImgInput.value.trim(),
@@ -180,15 +196,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 upload_date: uploadDate,
                 android_version: androidVer,
                 architecture: selectedArchs, // 数组
-                
+
                 featured: featured,
                 download_url: downloadUrl
             };
 
             const jsonString = JSON.stringify(newApp, null, 2);
-            codeResult.innerText = `  ,\n${jsonString}`; 
+            codeResult.innerText = `  ,\n${jsonString}`;
             outputArea.style.display = 'block';
-            outputArea.scrollIntoView({ behavior: 'smooth' });
+            outputArea.scrollIntoView({
+                behavior: 'smooth'
+            });
         });
     }
 
