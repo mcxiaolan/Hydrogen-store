@@ -36,7 +36,7 @@
         "id": 2,
         "name": "Bitwarden 密码管理器",
         "package_name": "com.x8bit.bitwarden",
-        "version": "2025.12.0",
+        "version": "2025.12.1",
         "developer": "Bitwarden Inc.",
         "website": "https://bitwarden.com",
         "uploader": "佐佐木明里",
@@ -57,7 +57,7 @@
             "https://oss.give.eu.org/api/raw?path=/2/screenshot2.webp",
             "https://oss.give.eu.org/api/raw?path=/2/screenshot3.webp"
         ],
-        "upload_date": "2025-12-01",
+        "upload_date": "2026-01-13",
         "android_version": "Android 10.0+",
         "architecture": [
             "Universal"
