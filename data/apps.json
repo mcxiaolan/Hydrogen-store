@@ -122,45 +122,5 @@
         ],
         "featured": true,
         "download_url": "https://oss.give.eu.org/api/raw?path=/4/com.ss.android.ugc.aweme.watch.apk"
-    },
-    {
-        "id": 5,
-        "name": "Stratum",
-        "package_name": "com.stratumauth.app",
-        "version": "1.4.0",
-        "developer": "Jamie M. Hodgson",
-        "website": "https://stratumauth.com",
-        "uploader": "佐佐木明里",
-        "icon": "https://oss.give.eu.org/api/raw?path=/5/icon.webp",
-        "cover": "linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%)",
-        "cover_image": "https://stratumauth.com/img/hero-2x.png",
-        "type": "app",
-        "tags": [
-            "手表软件",
-            "圆屏适配",
-            "工具",
-            "安全"
-        ],
-        "description": "一个开源的双因素认证（2FA）应用，支持加密备份以及 Wear OS",
-        "long_description": "一个开源的双因素认证（2FA）应用，支持加密备份以及 Wear OS。\n\n本应用支持 TOTP（基于时间）和 HOTP（基于计数）认证方式，兼容 SHA1、SHA256 及 SHA512 哈希算法。同时支持 Mobile-Otp (mOTP)、Steam 和 Yandex 验证。\n\n双因素认证通过在登录时要求输入一次性动态码，为您的账户提供额外安全保护。\n除了用户名和密码，您还需要输入由 Stratum 提供的一次性动态码。因此，即便您的登录凭据泄露，您的账户依然安全。\n\n功能特性\n\n- ⚙️ 兼容性：Stratum 与绝大多数服务提供商及账户兼容。\n- 📲 导入：轻松从受支持的其他应用将账户迁移至 Stratum。\n- 💾 备份与恢复：通过强加密保护您的身份验证器备份。即便丢失或更换手机，您也能随时找回账户。支持将备份保存至云端或本地设备。\n- 🌙 深色模式：基于 Material Design 设计，提供精美的亮色与深色主题。\n- ⏺️ 图标：通过一次性动态码旁的品牌 Logo 轻松识别每个品牌的账户。\n- 📂 分类管理：将您的验证器整理到不同类别中。\n- 🔒 离线运行与极简权限：Stratum 仅需一项权限¹，且无需互联网访问即可运行。\n- 🔑 安全保护：支持设置密码或使用生物识别（指纹/面部）来保护您的动态码。\n- 🎨 个性化定制：支持自定义图标及重命名。您可以随意排列顺序，以便快速查找。\n- ⌚ Wear OS：直接通过手表查看验证码。您还可以将常用项设为“收藏”并放置在快捷卡片（Tile）中。请注意，此功能需要连接至 Android 手机。此外，F-Droid 版本的应用由于缺少非自由依赖项，不支持 Wear OS。\n\n(¹) *扫描二维码时，应用需要相机权限。*\n\nhttps: //stratumauth.com/wiki/faq\n\n免责声明\n\n本程序为自由软件：您可以根据自由软件基金会发布的 GNU 通用公共许可协议（GPL）第 3 版或（由您选择）任何更新版本，对其进行重新分发和/或修改。\n\n发布此程序的初衷是希望它能发挥作用，但不提供任何保证；甚至不包含对适销性或特定用途适用性的隐含保证。详情请参阅 GNU 通用公共许可协议。\n\n(应用介绍翻译 by Google Gemini 3 Flash)\n\n推荐在其 GitHub Releases 页面下载此软件",
-        "screenshots": [
-            "https://cdn.jsdelivr.net/gh/stratumauth/app@master/doc/wearos_screenshot1.png",
-            "https://cdn.jsdelivr.net/gh/stratumauth/app@master/doc/wearos_screenshot2.png",
-            "https://cdn.jsdelivr.net/gh/stratumauth/app@master/doc/wearos_screenshot3.png",
-            "https://cdn.jsdelivr.net/gh/stratumauth/app@master/doc/wearos_screenshot4.png",
-            "https://cdn.jsdelivr.net/gh/stratumauth/app@master/doc/wearos_screenshot5.png",
-            "https://cdn.jsdelivr.net/gh/stratumauth/app@master/doc/screenshot1.png",
-            "https://cdn.jsdelivr.net/gh/stratumauth/app@master/doc/screenshot7.png",
-            "https://cdn.jsdelivr.net/gh/stratumauth/app@master/doc/screenshot8.png"
-        ],
-        "upload_date": "2025-08-17",
-        "android_version": "Android 5.0+",
-        "architecture": [
-            "arm64-v8a",
-            "armeabi-v7a",
-            "x86_64"
-        ],
-        "featured": true,
-        "download_url": "https://stratumauth.com/download"
     }
 ]
